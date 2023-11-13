@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PageNotFound = () => {
+  const naviagte = useNavigate();
+  useEffect(() => {
+    const r = () => {
+      naviagte(`/`);
+    };
+    const timeoutId = setTimeout(r, 5000);
+    return () => clearTimeout(timeoutId);
+  }, []);
   return (
     <div className="h-screen flex flex-col justify-center items-center px-2 text-center text-white/[0.8] text-lg">
       <Helmet>

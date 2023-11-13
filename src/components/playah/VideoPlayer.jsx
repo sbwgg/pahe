@@ -16,7 +16,7 @@ const fontSize = [
   },
 ];
 const VideoPlayer = ({ id, provider, data, poster, details }) => {
-  const { mProxy, mLocal } = useContext(Context);
+  const { mProxy, mLocal,mcProxy } = useContext(Context);
   const [url, setUrl] = useState();
   const [source, setSource] = useState();
   const [resolution, setResolution] = useState("auto");
@@ -64,9 +64,9 @@ const VideoPlayer = ({ id, provider, data, poster, details }) => {
 
             url:
               provider === "gogoanime" || provider === "zoro"
-                ? `${items?.url}`
-                : // ? `${mProxy}/cors?url=${items?.url}`
-                  `https://proxy.anistreme.live/proxy/m3u8/` +
+                ? // ? `${items?.url}`
+                  `${mProxy}/cors?url=${items?.url}`
+                : `${mcProxy}` +
                   encodeURIComponent(items?.url),
           };
         });

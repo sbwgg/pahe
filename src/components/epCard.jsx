@@ -182,7 +182,7 @@ const EpisodeCardSection = ({
         {hasDub ? (
           <div className="flex items-center font-['Poppins'] text-sm gap-1 ml-auto mx-1">
             <span>Dub</span>
-            <label class="switch">
+            <label className="switch">
               <input
                 type="checkbox"
                 checked={searchParams.get("subType") === "dub" ? true : false}
@@ -194,7 +194,7 @@ const EpisodeCardSection = ({
                   );
                 }}
               />
-              <span class="slider"></span>
+              <span className="slider"></span>
             </label>
           </div>
         ) : (

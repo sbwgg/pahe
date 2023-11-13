@@ -20,9 +20,10 @@ export const AppContext = (props) => {
     return storedList ? JSON.parse(storedList) : [];
   });
   const workerURL = import.meta.env.VITE_IMGPROXY_URL;
-  const lrl = import.meta.env.VITE_CPI_URL;
+  const lrl = import.meta.env.VITE_BASE_URL;
   const api = import.meta.env.VITE_ANIFY_URL;
   const mProxy = import.meta.env.VITE_M3U8PROXY_URL;
+  const mcProxy = import.meta.env.VITE_MCPROXY_URL;
   const local = "http://localhost:3000";
   const mLocal = "http://localhost:5010";
 
@@ -49,6 +50,7 @@ export const AppContext = (props) => {
       value={{
         api,
         workerURL,
+        mcProxy,
         data,
         setData,
         mobileView,
