@@ -1,4 +1,4 @@
-import  { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import InfoSection from "../components/infoSection/InfoSection";
 import { useParams } from "react-router-dom";
 import { Context } from "../context/AppContext";
@@ -10,7 +10,7 @@ import Caraousel from "../components/Caraousel";
 
 const Info = () => {
   const params = useParams();
-  const { popular, setProgress, api, setOnInfoPage, lrl, local } =
+  const { popular, setProgress, api, setOnInfoPage, lrl, brl, local } =
     useContext(Context);
   const [resultData, setResultData] = useState([]);
   const [related, setRelated] = useState([]);
@@ -58,16 +58,22 @@ const Info = () => {
     };
 
     const artwork = async () => {
-      const { data } = await axios.get(`${lrl}/artwork/${params.id}`);
-      setArtworkData(data);
+      const { data } = await axios.get(`${brl}/artwork/${params.id}`);
+      const uniqueArtwork = Array.from(
+        new Set(
+          data?.artwork
+            ?.filter((item) => item?.type === "banner")
+            ?.map((art) => art?.img)
+        )
+      );
+      setArtworkData(uniqueArtwork);
     };
     Promise.all([info(), relation(), artwork()]);
   }, [params.id]);
   const banner = useMemo(() => {
-    const num = Math.floor(Math.random() * 100) + 1;
-    const art = artworkData?.artwork?.filter((item) => item?.type === "banner");
-    return art?.[num]?.img || resultData?.bannerImage;
-  }, [artworkData,resultData]);
+    const num = Math.floor(Math.random() * artworkData?.length) + 1;
+    return artworkData?.[num] || resultData?.bannerImage;
+  }, [artworkData, resultData]);
   return (
     <>
       <Helmet>

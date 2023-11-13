@@ -63,7 +63,7 @@ const Slider = ({ data }) => {
                   <span className="text-[var(--pinkk)] mb-[2px] tracking-wider text-sm md:text-base font-semibold brightness-125 ">
                     #{index + 1} Spotlight
                   </span>
-                  <span className="title text-xl md:text-4xl font-['Montserrat'] leading-[1.2em] font-semibold line-clamp-2">
+                  <span className="title text-xl sm:text-2xl md:text-3xl lg:text-4xl font-['Montserrat'] leading-[1.2em] font-semibold line-clamp-2">
                     {item?.title?.english || item?.title?.romaji}
                   </span>
                   <span className="review text-xs md:text-sm text-white/90 md:text-white flex items-center gap-3 md:gap-4">

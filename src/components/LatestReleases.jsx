@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 
 const LatestReleases = ({ home, perPage }) => {
-  const { progress, setProgress, conUrl, lrl, local } = useContext(Context);
+  const { progress, setProgress, conUrl, lrl, brl, local } =
+    useContext(Context);
   const [result, setResult] = useState([]);
   const [page, setPage] = useState(1);
   const containerRef = useRef(null);
@@ -22,7 +23,7 @@ const LatestReleases = ({ home, perPage }) => {
     const fetcho = async () => {
       try {
         const { data } = await axios.get(
-          `${lrl}/recent-episodes?type=anime&page=${page}&perPage=${perPage}`
+          `${brl}/recent-eps?type=anime&page=${page}&perPage=${perPage}`
         );
         const recentEpsData = removeDuplicates(data, "id");
         setResult(recentEpsData);
@@ -80,7 +81,9 @@ const LatestReleases = ({ home, perPage }) => {
             {result?.length > 0 ? (
               result?.map((item) => {
                 const num = Math.floor(Math.random() * 100) + 1;
-                const art = item?.artwork?.filter((e) => e?.type === "banner");
+                const art = item?.artwork
+                  ?.slice(0, 300)
+                  ?.filter((e) => e?.type === "banner");
                 const banner =
                   art?.[num]?.img || item?.bannerImage || item?.coverImage;
                 return (

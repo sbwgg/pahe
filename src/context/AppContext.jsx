@@ -21,6 +21,7 @@ export const AppContext = (props) => {
   });
   const workerURL = import.meta.env.VITE_IMGPROXY_URL;
   const lrl = import.meta.env.VITE_BASE_URL;
+  const brl = import.meta.env.VITE_BETA_URL;
   const api = import.meta.env.VITE_ANIFY_URL;
   const mProxy = import.meta.env.VITE_M3U8PROXY_URL;
   const mcProxy = import.meta.env.VITE_MCPROXY_URL;
@@ -49,6 +50,7 @@ export const AppContext = (props) => {
     <Context.Provider
       value={{
         api,
+        brl,
         workerURL,
         mcProxy,
         data,
