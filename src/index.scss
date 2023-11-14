@@ -65,6 +65,12 @@ input {
   letter-spacing: 0.025em;
 }
 
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .smoothie {
   transition: all .3s ease !important;
 }
@@ -438,17 +444,17 @@ input[type="number"] {
   align-items: center;
   width: 4em;
   height: 20px;
- }
- 
- /* Hide default HTML checkbox */
- .switch input {
+}
+
+/* Hide default HTML checkbox */
+.switch input {
   opacity: 1;
   width: 0;
   height: 0;
- }
- 
- /* The slider */
- .slider {
+}
+
+/* The slider */
+.slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -459,9 +465,9 @@ input[type="number"] {
   transition: .4s;
   border-radius: 30px;
   border: 1px solid gray;
- }
- 
- .slider:before {
+}
+
+.slider:before {
   position: absolute;
   content: "";
   height: 1.9em;
@@ -473,21 +479,22 @@ input[type="number"] {
   background-color: whitesmoke;
   box-shadow: 0 2px 5px #999999;
   transition: .4s;
- }
- 
- input:checked + .slider {
+}
+
+input:checked+.slider {
   background-color: var(--pinkk);
   border: 1px solid transparent;
- }
- 
- input:checked + .slider:before {
-  transform: translateX(1.5em);
- }
+}
 
- @keyframes rotate360 {
+input:checked+.slider:before {
+  transform: translateX(1.5em);
+}
+
+@keyframes rotate360 {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

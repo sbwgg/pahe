@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Context } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -11,13 +11,28 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { Play, TrendingUp } from "lucide-react";
 import { Helmet } from "react-helmet";
-const Slider = ({ data }) => {
-  const { setProgress } = useContext(Context);
+import axios from "axios";
+import ReactPlayer from "react-player";
+const Slider = ({ trendingData }) => {
+  const { setProgress, local ,brl} = useContext(Context);
   const [result, setResult] = useState([]);
+  const [trailer, setTrailer] = useState("");
 
   useEffect(() => {
-    setResult(data);
-  }, [data]);
+    if (trendingData.length < 0) {
+      return;
+    }
+    let match = trendingData?.[0]?.trailer?.match(/[?&]v=([^&]+)/);
+    const v = match ? match[1] : null;
+    const fetchV = async () => {
+      const { data } = await axios.get(`${brl}/trailer/${v}`);
+      setTrailer(data);
+    };
+    setResult(trendingData);
+    if (v !== null) {
+      fetchV();
+    }
+  }, [trendingData]);
 
   const cleanDescription = (description) => {
     const tempElement = document.createElement("div");
@@ -44,21 +59,34 @@ const Slider = ({ data }) => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className={`h-[44vh] sm:h-[77vh] lg:h-[87vh] 2xl:h-screen`}
+        className={`h-[44vh] sm:h-[77vh] z-0 lg:h-[87vh] 2xl:h-screen`}
       >
         {result?.map((item, index) => {
           return (
             <SwiperSlide key={item?.id} className={`relative`}>
-              <LazyLoadImage
-                alt=""
-                height="100%"
-                src={item?.bannerImage || item?.coverImage}
-                width="100%"
-                effect="blur"
-                className="absolute top-0 left-0 w-full h-full object-cover"
-              />
+              {trailer.length > 1 ? (
+                <ReactPlayer
+                  url={trailer}
+                  muted
+                  loop
+                  playing
+                  width={`100vw`}
+                  height={`100%`}
+                  style={{ objectFit: "cover" }}
+                  className="absolute top-0 z-[-1] left-0 w-full h-full object-cover"
+                ></ReactPlayer>
+              ) : (
+                <LazyLoadImage
+                  alt=""
+                  height="100%"
+                  src={item?.bannerImage || item?.coverImage}
+                  width="100%"
+                  effect="blur"
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                />
+              )}
               <div className="op-layer-hero"></div>
-              <div className="slide-details w-[77%] lg:w-[45%] tracking-wide  absolute flex flex-col gap-3 md:gap-6 bottom-[6%] md:bottom-[10%] left-[5%] lg:left-[8%] ">
+              <div className="slide-details  w-[77%] lg:w-[45%] tracking-wide z-10 absolute flex flex-col gap-3 md:gap-6 bottom-[6%] md:bottom-[10%] left-[5%] lg:left-[8%] ">
                 <div className="flex flex-col gap-2 md:gap-3 ">
                   <span className="text-[var(--pinkk)] mb-[2px] tracking-wider text-sm md:text-base font-semibold brightness-125 ">
                     #{index + 1} Spotlight

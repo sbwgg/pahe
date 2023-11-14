@@ -53,13 +53,21 @@ const Home = () => {
   const listo = JSON.parse(localStorage.getItem(`history`))?.sort(
     (a, b) => b.dateAdded - a.dateAdded
   );
+  const getRandomObjectArray = (array) => {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array.slice(randomIndex, randomIndex + 1);
+  };
   return (
     <>
       <Helmet>
         <title>Pahe - Free Anime Streaming</title>
       </Helmet>
       <div>
-        <Slider data={trendingData?.slice(0, 10)} />
+        <Slider
+          trendingData={getRandomObjectArray(
+            trendingData?.filter((i) => i?.trailer.length > 1)
+          )}
+        />
         {listo?.length > 0 && <RecentWatched listo={listo?.slice(0, 4)} />}
         <Caraousel
           data={trendingData}
