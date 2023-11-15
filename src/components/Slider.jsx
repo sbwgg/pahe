@@ -68,9 +68,13 @@ const Slider = ({ trendingData }) => {
                 <ReactPlayer
                   url={trailer}
                   muted={muted}
-                  onError={(e) => setTrailer("")}
+                  onError={(e) => {
+                    if (e?.target?.error?.code === 4 || e === "hlsError") {
+                      setTrailer("");
+                    }
+                  }}
                   onEnded={() => setTrailer("")}
-                  playing
+                  playing={true}
                   width={`100vw`}
                   height={`100%`}
                   style={{ objectFit: "cover" }}

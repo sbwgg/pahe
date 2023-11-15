@@ -17,7 +17,6 @@ const LatestReleases = ({ home, perPage }) => {
   const [result, setResult] = useState([]);
   const [page, setPage] = useState(1);
   const containerRef = useRef(null);
-  100;
 
   useEffect(() => {
     const fetcho = async () => {
@@ -25,8 +24,7 @@ const LatestReleases = ({ home, perPage }) => {
         const { data } = await axios.get(
           `${brl}/recent-eps?type=anime&page=${page}&perPage=${perPage}`
         );
-        const recentEpsData = removeDuplicates(data, "id");
-        setResult(recentEpsData);
+        setResult(data);
       } catch (error) {
         console.log(`something in yo ass hmmmmmmmmmmmmmmmmmmmmmmmmmmmmm`);
       }
@@ -44,16 +42,6 @@ const LatestReleases = ({ home, perPage }) => {
       });
     }
     setProgress(100);
-  };
-  const removeDuplicates = (array, key) => {
-    const uniqueKeys = new Set();
-    return array?.filter((item) => {
-      if (!uniqueKeys.has(item[key])) {
-        uniqueKeys.add(item[key]);
-        return true;
-      }
-      return false;
-    });
   };
   return (
     <>
@@ -80,18 +68,22 @@ const LatestReleases = ({ home, perPage }) => {
           >
             {result?.length > 0 ? (
               result?.map((item) => {
-                const num = Math.floor(Math.random() * 100) + 1;
-                const art = item?.artwork
-                  ?.slice(0, 300)
-                  ?.filter((e) => e?.type === "banner");
+                const art = Array.from(
+                  new Set(
+                    item?.artwork
+                      ?.filter((item) => item?.type === "banner")
+                      ?.map((art) => art?.img)
+                  )
+                );
+                const num = Math.floor(Math.random() * art?.length) + 1;
                 const banner =
-                  art?.[num]?.img || item?.bannerImage || item?.coverImage;
+                  art?.[num] || item?.bannerImage || item?.coverImage;
                 return (
                   <div
                     key={item?.id}
                     className={`${
                       home ? "w-[85%]" : "w-full"
-                    } sm:w-[50%] md:w-[33.3%] xl:w-[25%] flex-shrink-0 p-[.3rem] mb-1 lg:mb-2 aspect-[16/8.7]`}
+                    } sm:w-[50%] md:w-[33.3%]   xl:w-[25%] flex-shrink-0 p-[.3rem] mb-1 lg:mb-2 aspect-[16/8.7]`}
                   >
                     <Link
                       to={`/watch/${item?.id}?ep=${
