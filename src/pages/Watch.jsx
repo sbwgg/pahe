@@ -33,9 +33,9 @@ const Watch = () => {
       try {
         setProgress(80);
         const { data } = await axios.get(`${lrl}/info/${params?.id}`);
-        setResultData(data?.data);
-        if (data?.data?.episodes?.data?.length > 0) {
-          setProviders(data?.data?.episodes?.data || []);
+        setResultData(data);
+        if (data?.episodes?.data?.length > 0) {
+          setProviders(data?.episodes?.data || []);
         } else {
           fetchEpisodes();
         }

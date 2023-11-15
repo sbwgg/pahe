@@ -40,9 +40,9 @@ const Info = () => {
       try {
         const { data } = await axios.get(`${lrl}/info/${params.id}`);
         setProgress(80);
-        setResultData(data?.data);
-        if (data?.data?.episodes?.data?.length > 0) {
-          setEpisodeData(data?.data?.episodes?.data);
+        setResultData(data);
+        if (data?.episodes?.data?.length > 0) {
+          setEpisodeData(data?.episodes?.data);
         } else {
           fetchEpisodes();
         }
@@ -59,14 +59,7 @@ const Info = () => {
 
     const artwork = async () => {
       const { data } = await axios.get(`${brl}/artwork/${params.id}`);
-      const uniqueArtwork = Array.from(
-        new Set(
-          data?.artwork
-            ?.filter((item) => item?.type === "banner")
-            ?.map((art) => art?.img)
-        )
-      );
-      setArtworkData(uniqueArtwork);
+      setArtworkData(data);
     };
     Promise.all([info(), relation(), artwork()]);
   }, [params.id]);
