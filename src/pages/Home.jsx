@@ -65,7 +65,7 @@ const Home = () => {
       <div>
         <Slider
           trendingData={getRandomObjectArray(
-            trendingData?.filter((i) => i?.trailer.length > 1)
+            trendingData?.filter((i) => i?.trailer?.length > 1)
           )}
         />
         {listo?.length > 0 && <RecentWatched listo={listo?.slice(0, 4)} />}

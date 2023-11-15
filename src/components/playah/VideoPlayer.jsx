@@ -16,7 +16,7 @@ const fontSize = [
   },
 ];
 const VideoPlayer = ({ id, provider, data, poster, details }) => {
-  const { mProxy, mLocal,mcProxy } = useContext(Context);
+  const { mProxy, mLocal, mcProxy } = useContext(Context);
   const [url, setUrl] = useState();
   const [source, setSource] = useState();
   const [resolution, setResolution] = useState("auto");
@@ -67,7 +67,7 @@ const VideoPlayer = ({ id, provider, data, poster, details }) => {
                 ? // ? `${items?.url}`
                   `${mProxy}/cors?url=${items?.url}`
                 : `${mcProxy}` +
-                  encodeURIComponent(items?.url),
+                  encodeURIComponent(items?.url) ,
           };
         });
         const defSource = source?.find((i) => i?.default === true);

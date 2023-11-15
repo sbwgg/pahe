@@ -59,7 +59,7 @@ const LatestReleases = ({ home, perPage }) => {
     <>
       <div
         ref={containerRef}
-        className="relative w-full max-w-[1300px] 2xl:max-w-[1400px] mx-auto my-5 lg:my-8 px-1 md:pb-3"
+        className="relative w-full max-w-[1300px] 2xl:max-w-[1400px] mx-auto my-5 mb-9 lg:my-8 px-1 md:pb-3"
       >
         <Link
           to={`/latest-episodes`}

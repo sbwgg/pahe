@@ -9,15 +9,15 @@ import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { FaClosedCaptioning } from "react-icons/fa";
-import { Play, TrendingUp } from "lucide-react";
+import { Play, TrendingUp, Volume2, VolumeX } from "lucide-react";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import ReactPlayer from "react-player";
 const Slider = ({ trendingData }) => {
-  const { setProgress, local ,brl} = useContext(Context);
+  const { setProgress, local, brl } = useContext(Context);
   const [result, setResult] = useState([]);
   const [trailer, setTrailer] = useState("");
-
+  const [muted, setMuted] = useState(false);
   useEffect(() => {
     if (trendingData.length < 0) {
       return;
@@ -26,7 +26,7 @@ const Slider = ({ trendingData }) => {
     const v = match ? match[1] : null;
     const fetchV = async () => {
       const { data } = await axios.get(`${brl}/trailer/${v}`);
-      setTrailer(data);
+      setTrailer(data?.hls || data?.video);
     };
     setResult(trendingData);
     if (v !== null) {
@@ -64,11 +64,12 @@ const Slider = ({ trendingData }) => {
         {result?.map((item, index) => {
           return (
             <SwiperSlide key={item?.id} className={`relative`}>
-              {trailer.length > 1 ? (
+              {trailer?.length > 1 ? (
                 <ReactPlayer
                   url={trailer}
-                  muted
-                  loop
+                  muted={muted}
+                  onError={(e) => setTrailer("")}
+                  onEnded={() => setTrailer("")}
                   playing
                   width={`100vw`}
                   height={`100%`}
@@ -86,6 +87,20 @@ const Slider = ({ trendingData }) => {
                 />
               )}
               <div className="op-layer-hero"></div>
+              {trailer?.length > 0 ? (
+                <button
+                  onClick={() => setMuted(!muted)}
+                  className="absolute right-2 sm:right-6 bottom-4 z-20 p-2 bg-white/20 hover:bg-white/25 active:!scale-95 rounded-full overflow-hidden "
+                >
+                  {muted ? (
+                    <VolumeX strokeWidth={1.7} size={20} />
+                  ) : (
+                    <Volume2 strokeWidth={1.7} size={20} />
+                  )}
+                </button>
+              ) : (
+                ""
+              )}
               <div className="slide-details  w-[77%] lg:w-[45%] tracking-wide z-10 absolute flex flex-col gap-3 md:gap-6 bottom-[6%] md:bottom-[10%] left-[5%] lg:left-[8%] ">
                 <div className="flex flex-col gap-2 md:gap-3 ">
                   <span className="text-[var(--pinkk)] mb-[2px] tracking-wider text-sm md:text-base font-semibold brightness-125 ">

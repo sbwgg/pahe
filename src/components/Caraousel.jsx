@@ -58,7 +58,7 @@ const Caraousel = ({ data, title, clas, from }) => {
   return (
     <>
       <div
-        className={`relative flex flex-col gap-4 md:gap-5 w-full max-w-[1300px] 2xl:max-w-[1400px] z-20 mx-auto my-5 mb-10 lg:my-8 lg:mb-12 `}
+        className={`relative flex flex-col gap-4 md:gap-5 w-full max-w-[1300px] 2xl:max-w-[1400px] z-20 mx-auto my-5 mb-9 lg:my-8 lg:mb-12 `}
       >
         <div className="text-lg sm:text-xl lg:text-2xl font-medium lg:font-normal tracking-[0.015em] lg:tracking-normal 2xl:text-[1.6rem] font-['Poppins'] items-center gap-2 flex px-2 ">
           <div className="h-6 md:h-8 rounded-md w-[6px] bg-[var(--pink)] "></div>

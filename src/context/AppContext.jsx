@@ -20,6 +20,8 @@ export const AppContext = (props) => {
     return storedList ? JSON.parse(storedList) : [];
   });
   const workerURL = import.meta.env.VITE_IMGPROXY_URL;
+  // const lrl = "http://localhost:3000";
+  // const brl = "http://localhost:3000";
   const lrl = import.meta.env.VITE_BASE_URL;
   const brl = import.meta.env.VITE_BETA_URL;
   const api = import.meta.env.VITE_ANIFY_URL;
